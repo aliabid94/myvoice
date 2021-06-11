@@ -1,0 +1,382 @@
+<!doctype html>
+
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="utf-8">
+  <title>myVoice | {{ song.title }}</title>
+  <meta name="description" content="myVoice Singing App">
+  <meta name="author" content="myVoice">
+  <link href="/static/vendor/tailwind.min.css" rel="stylesheet">
+  <link href="/static/css/custom.css" rel="stylesheet">
+  <style>
+  </style>
+</head>
+
+<body class="flex flex-col h-full relative text-white">
+  <img class="fixed right-0 w-full h-full object-cover" src="/static/img/singer.jpg">
+  <div class="z-10 flex flex-col w-full h-full">
+    <nav class="bg-black bg-opacity-50 px-8 z-20">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="p-2 flex align-middle items-center">
+          <h1 class="text-3xl text-white">
+            <a href="/">my<span class="font-bold">Voice</span></a>
+          </h1>
+          <div class="ml-4 flex border-2 bg-white border-gray-200 transition focus-within:border-purple-700">
+            <input type="text" placeholder="Search Songs..."
+              class="text-sm p-2 w-80 h-8 transition box-border border-none bg-transparent focus:outline-none">
+            <button class="h-8 w-8 box-border flex justify-center items-center focus:outline-none">
+              <svg width="20" height="20" viewBox="-10 -10 20 20">
+                <circle cx="3" cy="-3" r="5" fill="none" stroke="rgb(109,40,217)" stroke-width="3"></circle>
+                <line stroke="rgb(109,40,217)" stroke-width="3" x1="-7" y1="7" x2="0.5" y2="-0.5"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex gap-4 text-sm">
+          <a class="text-white px-3 py-2 uppercase font-semibold block" href="/">Home</a>
+          <div class="dropdown inline-block relative">
+            <button class="text-white px-3 py-2 uppercase font-semibold block flex gap-1.5">
+              <span class="mr-0.5">Recent</span>
+              <svg class="fill-current h-4 w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </button>
+            <ul class="w-60 dropdown-menu absolute right-0 hidden bg-white text-gray-700 border-2 border-gray-200">
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by
+                  Fun)</a></li>
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by
+                  Fun)</a></li>
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by
+                  Fun)</a></li>
+            </ul>
+          </div>
+          <a class="text-white px-3 py-2 uppercase font-semibold block" href="/login">Login</a>
+        </div>
+      </div>
+    </nav>
+    <main class="mx-auto container flex-grow flex pl-8">
+      <div class="h-full w-96">
+        <h2 class="text-2xl font-semibold text-white text-center px-4 pt-4">{{ song.title }}</h2>
+        <h3 class="text-gray-50 text-center px-0.5 pb-3">{{ song.artist }}</h3>
+        <div class="flex justify-center w-full">
+          <a href="?video=karaoke"
+            class="text-center uppercase flex-grow px-4 py-2 transition {% if video == 'karaoke' %} bg-black bg-opacity-70 font-bold {% else %} hover:bg-black hover:bg-opacity-30 {% endif %}">Karaoke</a>
+          <a href="?video=original"
+            class="text-center uppercase flex-grow px-4 py-2 transition {% if video == 'original' %} bg-black bg-opacity-70 font-bold {% else %} hover:bg-black hover:bg-opacity-30 {% endif %}">Original</a>
+        </div>
+        <div id="yt" class="h-60 bg-black w-full"></div>
+        <div class="pl-2 bg-black bg-opacity-70 flex justify-between items-center">
+          <div>Views: <span class="font-bold text-purple-600">{{ song.views }}</span></div>
+          <div>
+            Likes:
+            <span class="font-bold text-purple-600">{{ song.likes }}</span>
+            <button class="hover:bg-gray-700 p-1">+1</button>
+          </div>
+        </div>
+      </div>
+      <div class="flex-grow h-full flex flex-col shadow-lg">
+        <div class="flex-grow relative bg-white text-black">
+          <div class="intro_message absolute w-full h-full flex flex-col justify-center items-center">
+            <div class="p-4 bg-white text-gray-700 border-2 border-gray-100 w-1/2 text-center shadow-lg">
+              <p>When you press play, follow the target tone (marked <span
+                  class="text-red-500 font-semibold">red</span>) with your own voice (which will be marked <span
+                  class="text-purple-700 font-semibold">purple</span>).</p>
+              <p class="mt-4"><span class="font-bold">You must wear headphones</span> to prevent interference from the
+                original track.</p>
+            </div>
+          </div>
+          <svg class="visual w-full h-full bg-white">
+            <g class="supergroup">
+              <g class="static">
+                <g class="key_set"></g>
+              </g>
+              <g class="dynamic_holder">
+                <g class="dynamic">
+                  <g class="target_track"></g>
+                  <g class="user_track"></g>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="h-32 p-4 bg-white bg-opacity-90">
+          <div class="player-buttons opacity-50 flex justify-center items-center gap-4">
+            <button
+              class="rewind rounded-full h-10 w-10 bg-purple-700 hover:bg-purple-600 transition flex justify-center items-center focus:outline-none">
+              <svg width="24" height="24">
+                <rect x="3" y="4" rx="2" ry="2" width="5" height="18" fill="white"></rect>
+                <path transform="translate(6,4) scale(0.6) rotate(270, 15, 15)" stroke="none" fill="white"
+                  d="M12.401923788647 5.0096189432334a3 3 0 0 1 5.1961524227066 0l9.8038475772934 16.980762113533a3 3 0 0 1 -2.5980762113533 4.5l-19.607695154587 0a3 3 0 0 1 -2.5980762113533 -4.5">
+                </path>
+              </svg>
+            </button>
+            <button
+              class="play rounded-full h-12 w-12 bg-purple-700 hover:bg-purple-600 transition flex justify-center items-center focus:outline-none">
+              <svg width="30" height="30">
+                <path transform="translate(2,0) rotate(90, 15, 15)" stroke="none" fill="white"
+                  d="M12.401923788647 5.0096189432334a3 3 0 0 1 5.1961524227066 0l9.8038475772934 16.980762113533a3 3 0 0 1 -2.5980762113533 4.5l-19.607695154587 0a3 3 0 0 1 -2.5980762113533 -4.5">
+                </path>
+              </svg>
+            </button>
+            <button
+              class="stop hidden rounded-full h-12 w-12 bg-purple-700 hover:bg-purple-600 transition flex justify-center items-center focus:outline-none">
+              <svg width="30" height="30">
+                <rect x="4" y="2" rx="2" ry="2" width="8" height="26" fill="white"></rect>
+                <rect x="18" y="2" rx="2" ry="2" width="8" height="26" fill="white"></rect>
+              </svg>
+            </button>
+          </div>
+          <div class="flex mt-4 gap-2 items-center">
+            <input class="slider flex-grow appearance-none transition h-4 bg-gray-300" type="range" min="0" max="999"
+              step="1" value="0" />
+            <div class="pb-0.5 text-gray-700">
+              <span class="current_position">0:00</span> /
+              <span class="total_duration">{{ format_duration(song.duration) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/static/vendor/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"
+    integrity="sha512-cd6CHE+XWDQ33ElJqsi0MdNte3S+bQY819f7p3NUHgwQQLXSKjE4cPZTeGNI+vaxZynk1wVU3hoHmow3m089wA=="
+    crossorigin="anonymous"></script>
+  <script>
+    let song_id = {{ song.id }};
+    let video_id = "{{ song.yt_karoake_id if video == 'karaoke' else song.yt_original_id }}";
+    let high_note = {{ song.high_note }};
+    let low_note = {{ song.low_note }};
+    let sample_rate = {{ song.sample_rate }};
+    let duration = {{ song.duration }};
+
+    const KEY_HEIGHT = 16;
+    const KEY_WIDTH = 50;
+    const SECOND_WIDTH = 60;
+    const MAX_WIDTH = 10000;
+    const START_OCTAVE = 2;
+    const END_OCTAVE = 5;
+    const CURRENT_POSITION_OFFSET = 160;
+    const TOP_NOTE = (END_OCTAVE + 2) * 12 - 1;
+
+    let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    let range = [];
+    for (let octave = START_OCTAVE; octave <= END_OCTAVE; octave++) {
+      for (let note of notes) {
+        range.push(note + octave);
+      }
+    }
+    range = range.reverse();
+    d3.select(".supergroup")
+      .attr("transform", `translate(0, ${KEY_HEIGHT * (high_note - TOP_NOTE + 2)})`)
+    let key_g = d3.select(".key_set")
+      .selectAll("g")
+      .data(range)
+      .enter()
+      .append("g")
+      .attr("transform", function (d, i) { return `translate(0, ${i * KEY_HEIGHT})` })
+      .attr("x", 0)
+      .attr("y", function (d, i) { return i * KEY_HEIGHT });
+    key_g.append("rect")
+      .attr("fill", function (d, i) { return d.includes("#") ? "rgb(229,231,235)" : "white" })
+      .attr("width", MAX_WIDTH)
+      .attr("height", KEY_HEIGHT)
+    key_g.append("rect")
+      .attr("fill", function (d, i) { return d.includes("#") ? "rgb(209, 213, 219)" : "rgb(249, 250, 251)" })
+      .attr("width", KEY_WIDTH)
+      .attr("height", KEY_HEIGHT)
+    key_g.append("text")
+      .text(function (d, i) { return d })
+      .attr("fill", "rgb(55, 65, 81)")
+      .attr("alignment-baseline", "hanging")
+      .attr("x", 2)
+      .attr("y", 2)
+      .attr("font-size", KEY_HEIGHT - 3)
+    d3.select(".static")
+      .append("line")
+      .attr("x1", CURRENT_POSITION_OFFSET)
+      .attr("y1", 0)
+      .attr("x2", CURRENT_POSITION_OFFSET)
+      .attr("y2", 10000)
+      .attr("stroke", "rgb(167, 139, 250)")
+      .attr("stroke-dasharray", "5,5")
+    d3.select(".dynamic_holder")
+      .attr("transform", `translate(${CURRENT_POSITION_OFFSET}, 0)`)
+    let format_duration = time_s => {
+      time_s = Math.round(time_s);
+      let minute = Math.floor(time_s / 60);
+      let second = time_s % 60;
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      return minute + ":" + second;
+    }
+    let sample_width = SECOND_WIDTH / sample_rate;
+    let total_width = duration * sample_rate * sample_width;
+    const xScale = d3.scaleLinear()
+      .domain([0, 1])
+      .range([0, sample_width])
+    const yScale = d3.scaleLinear()
+      .domain([0, TOP_NOTE])
+      .range([KEY_HEIGHT * TOP_NOTE + KEY_HEIGHT / 2, KEY_HEIGHT / 2])
+    const line = d3.line()
+      .x((d, i) => xScale(i))
+      .y((d, i) => yScale(d[0]))
+      .curve(d3.curveCatmullRom.alpha(.5))
+      .defined(function (d) { return d[1] != 0 })
+    $.getJSON("/song_data/" + song_id, function (data) {
+      let target_circles = d3.select(".target_track")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {return xScale(i)})
+        .attr("cy", function (d, i) {return yScale(d[0])})
+        .attr("r", function (d, i) {return 6 * d[1]})
+        .attr("fill", "red");
+    })
+
+    let timeToVisualOffset = d3.scaleLinear()
+      .domain([0, duration])
+      .range([0, -total_width])
+    let timeToSlider = d3.scaleLinear()
+      .domain([0, duration])
+      .range([0, 999])
+    let sliderToTime = d3.scaleLinear()
+      .domain([0, 999])
+      .range([0, duration])
+    let yt_player;
+    let player = {
+      state: "LOADING",
+      current_position: 0,
+      interval_id: null,
+      play: function () {
+        if (this.state != "STOPPED") {
+          return;
+        }
+        if (!has_tuner_init) {
+          tuner.init();
+          $(".intro_message").hide();
+          has_tuner_init = true;
+        }
+        this.interval_id = window.setInterval(this.update.bind(this), 100)
+        $(".stop").removeClass("hidden");
+        $(".play").addClass("hidden");
+        this.state = "PLAYING";
+        yt_player.playVideo();
+      },
+      stop: function () {
+        if (this.state != "PLAYING") {
+          return;
+        }
+        window.clearInterval(this.interval_id);
+        $(".play").removeClass("hidden");
+        $(".stop").addClass("hidden");
+        this.state = "STOPPED";
+        yt_player.pauseVideo();
+      },
+      update: function (set_value) {
+        let old_pos = this.current_position;
+        this.current_position = set_value != null ? set_value : yt_player.getCurrentTime();
+        d3.select(".dynamic")
+          .transition()
+          .ease(d3.easeLinear)
+          .duration(100)
+          .attr("transform", `translate(${timeToVisualOffset(this.current_position)}, 0)`);
+        $(".slider").val(timeToSlider(this.current_position));
+        $(".current_position").text(format_duration(this.current_position));
+      },
+      set_to: function (new_position, allow_seek_ahead) {
+        if (this.state == "LOADING") {
+          return;
+        }
+        yt_player.seekTo(new_position, allow_seek_ahead);
+        this.update(new_position);
+      }
+    }
+    $(document).on("input", ".slider", function () {
+      player.stop();
+      player.set_to(sliderToTime($(this).val()), /*allow_seek_ahead=*/false);
+    })
+    $(document).on("change", ".slider", function () {
+      player.stop();
+      player.set_to(sliderToTime($(this).val()), /*allow_seek_ahead=*/true);
+    })
+    $(".play").click(player.play.bind(player));
+    $(".stop").click(player.stop.bind(player));
+    $(".rewind").click(() => {
+      player.stop();
+      player.set_to(0, /*allow_seek_ahead=*/true);
+    });
+    $('body').keyup(function (e) {
+      if (e.keyCode == 32) {
+        if (player.state == "PLAYING") {
+          player.stop()
+        } else if (player.state == "STOPPED") {
+          player.play()
+        }
+      }
+    });
+  </script>
+  <script src="/static/vendor/Aubio.js"></script>
+  <script src="/static/tuner.js"></script>
+  <script>
+    let tuner = new Tuner();
+    let has_tuner_init = false;
+    tuner.onNoteDetected = function (note) {
+      if (note.value > 72 || player.state != "PLAYING") {
+        return;
+      }
+      let tx = d3.select(".dynamic").attr("transform");
+      tx = -parseFloat(tx.substring(tx.indexOf("(")+1, tx.indexOf(",")));
+      d3.select(".user_track")
+        .append("circle")
+        .attr("cx", tx)
+        .attr("cy", yScale(note.value + note.cents / 100))
+        .attr("r", Math.max(Math.min(note.volume / 128, 8), 4))
+        .attr("fill", "rgb(109, 40, 217)")
+    }
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    function onYouTubeIframeAPIReady() {
+      yt_player = new YT.Player('yt', {
+        height: '240',
+        width: '360',
+        videoId: video_id,
+        playerVars: {
+          'playsinline': 1,
+          'controls': 0,
+          'disablekb': 1,
+          'enablejsapi': 1,
+          'fs': 0,
+          'modestbranding': 1
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+      function onPlayerReady() {
+        $(".player-buttons").removeClass("opacity-50")
+        player.state = "STOPPED";
+      }
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PAUSED) {
+          player.stop();
+        } else if (event.data == YT.PlayerState.ENDED) {
+          player.set_to(0);
+          player.stop();
+        } else if (event.data == YT.PlayerState.PLAYING) {
+          player.play();
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

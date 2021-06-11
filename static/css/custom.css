@@ -1,0 +1,19 @@
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: rgb(109, 40, 217);
+    border-radius: 4px;
+    cursor: pointer;
+}
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: rgb(109, 40, 217);
+    border-radius: 4px;
+    cursor: pointer;
+}

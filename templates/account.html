@@ -1,0 +1,108 @@
+<!doctype html>
+
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="utf-8">
+  <title>myVoice</title>
+  <meta name="description" content="myVoice Singing App">
+  <meta name="author" content="myVoice">
+  <link href="/static/vendor/tailwind.min.css" rel="stylesheet">
+  <link href="/static/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="flex flex-col h-full relative text-white">
+  <img class="fixed right-0 w-full h-full object-cover" src="/static/img/singer.jpg">
+  <div class="z-10 pb-12">
+    <nav class="bg-black bg-opacity-50 px-8">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="p-2 flex align-middle items-center">
+          <h1 class="text-3xl text-white">
+            <a href="/">my<span class="font-bold">Voice</span></a>
+          </h1>
+          <div class="ml-4 flex border-2 bg-white border-gray-200 transition focus-within:border-purple-700">
+            <input type="text" placeholder="Search Songs..."
+              class="text-sm p-2 w-80 h-8 transition box-border border-none bg-transparent focus:outline-none">
+            <button class="h-8 w-8 box-border flex justify-center items-center focus:outline-none">
+              <svg width="20" height="20" viewBox="-10 -10 20 20">
+                <circle cx="3" cy="-3" r="5" fill="none" stroke="rgb(109,40,217)" stroke-width="3"></circle>
+                <line stroke="rgb(109,40,217)" stroke-width="3" x1="-7" y1="7" x2="0.5" y2="-0.5"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex gap-4 text-sm">
+          <a class="text-white px-3 py-2 uppercase font-semibold block" href="/">Home</a>
+          <div class="dropdown inline-block relative">
+            <button class="text-white px-3 py-2 uppercase font-semibold block flex gap-1.5">
+              <span class="mr-0.5">Recent</span>
+              <svg class="fill-current h-4 w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+            </button>
+            <ul class="w-60 dropdown-menu absolute right-0 hidden bg-white text-gray-700 border-2 border-gray-200">
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by
+                  Fun)</a></li>
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by
+                  Fun)</a></li>
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by
+                  Fun)</a></li>
+            </ul>
+          </div>
+          <a class="text-white px-3 py-2 uppercase font-semibold block" href="/login">Login</a>
+        </div>
+      </div>
+    </nav>
+    <main class="mx-auto container px-8">
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-4xl font-bold my-6">Account Page</h1>
+          <h2 class="text-2xl font-semibold my-6">
+            Welcome, <span class="italic">testaccount@gmail.com</span>.
+          </h2>
+        </div>
+        <button class="bg-purple-600 text-white font-semibold p-3 mt-3">Sign Out</button>
+      </div>
+      <div class="flex gap-16">
+        <div class="bg-white text-gray-700 p-6 flex-1 flex flex-col">
+          <div class="flex-grow">
+            <p class="text-center text-gray-400">Free</p>
+            <h3 class="font-semibold text-center text-2xl my-3">Starter</h3>
+            <p>Just getting started? Try myVoice for free to see if our voice tracking tools are a fit for you.</p>
+            <ul class="list-disc list-inside mt-2">
+              <li>Play any song from our library, free of charge.</li>
+              <li>Use up to five minutes a day of our tone tracker tool.</li>
+            </ul>
+          </div>
+          <button class="w-full bg-gray-100 mt-6 py-3 font-semibold">Select Plan</button>
+        </div>
+        <div class="bg-white text-gray-700 p-6 flex-1 flex flex-col">
+          <div class="flex-grow">
+            <p class="text-center text-gray-400">$3 / month, billed yearly</p>
+            <h3 class="font-semibold text-center text-2xl my-3">Annual (Best Value)</h3>
+            <p>Get the premium myVoice experience with all features enabled. Commit to one year of singing for this
+              deal.</p>
+            <ul class="list-disc list-inside mt-2">
+              <li>Entire library available to you for unlimited use.</li>
+              <li>Unlimited use of our tone tracker tool and any other future premium features.</li>
+            </ul>
+          </div>
+          <button class="w-full bg-gray-100 mt-6 py-3 font-semibold">Select Plan</button>
+        </div>
+        <div class="bg-white text-gray-700 p-6 flex-1 flex flex-col">
+          <div class="flex-grow">
+            <p class="text-center text-gray-400">$5 / month, billed monthly</p>
+            <h3 class="font-semibold text-center text-2xl my-3">Monthly</h3>
+            <p>Get the premium myVoice experience with all features enabled. Cancel any time.</p>
+            <ul class="list-disc list-inside mt-2">
+              <li>Entire library available to you for unlimited use.</li>
+              <li>Unlimited use of our tone tracker tool and any other future premium features.</li>
+            </ul>
+          </div>
+          <button class="w-full bg-gray-100 mt-6 py-3 font-semibold">Select Plan</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/static/vendor/jquery-3.6.0.min.js"></script>
+</body>
+
+</html>

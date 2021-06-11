@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="utf-8">
+  <title>myVoice</title>
+  <meta name="description" content="myVoice Singing App">
+  <meta name="author" content="myVoice">
+  <link href="/static/vendor/tailwind.min.css" rel="stylesheet">
+  <link href="/static/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="flex flex-col h-full relative text-white">
+  <img class="fixed right-0 w-full h-full object-cover" src="/static/img/singer.jpg">
+  <div class="z-10 pb-12">
+    <nav class="bg-black bg-opacity-50 px-8">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="p-2 flex align-middle items-center">
+          <h1 class="text-3xl text-white">
+            <a href="/">my<span class="font-bold">Voice</span></a>
+          </h1>
+          <div class="ml-4 flex border-2 bg-white border-gray-200 transition focus-within:border-purple-700">
+            <input type="text" placeholder="Search Songs..."
+              class="text-sm p-2 w-80 h-8 transition box-border border-none bg-transparent focus:outline-none">
+            <button class="h-8 w-8 box-border flex justify-center items-center focus:outline-none">
+              <svg width="20" height="20" viewBox="-10 -10 20 20">
+                <circle cx="3" cy="-3" r="5" fill="none" stroke="rgb(109,40,217)" stroke-width="3"></circle>
+                <line stroke="rgb(109,40,217)" stroke-width="3" x1="-7" y1="7" x2="0.5" y2="-0.5"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex gap-4 text-sm">
+          <a class="text-white px-3 py-2 uppercase font-semibold block" href="/">Home</a>
+          <div class="dropdown inline-block relative">
+            <button class="text-white px-3 py-2 uppercase font-semibold block flex gap-1.5">
+              <span class="mr-1">Recent</span>
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+            </button>
+            <ul class="w-60 dropdown-menu absolute right-0 hidden bg-white text-gray-700 border-2 border-gray-200">
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by Fun)</a></li>
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by Fun)</a></li>
+              <li class=""><a class="hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="/song">We Are Young (by Fun)</a></li>
+            </ul>
+          </div>
+          <a class="text-white px-3 py-2 uppercase font-semibold block" href="/login">Login</a>
+        </div>
+      </div>
+    </nav>
+    <main class="mx-auto container px-8">
+      <div class="flex flex-col mt-12 mx-auto w-96 p-8 bg-white text-black gap-8">
+        <div class="text-2xl">Sign Up / Login</div>
+        <input class="bg-gray-100 p-2" placeholder="Email">
+        <input class="bg-gray-100 p-2" type="password" placeholder="Password">
+        <div class="flex w-full gap-8">
+          <button class="flex-grow py-3 font-semibold bg-purple-700 text-white">New Account</button>
+          <button class="flex-grow py-3 font-semibold bg-gray-100 text-black">Login</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/static/vendor/jquery-3.6.0.min.js"></script>
+</body>
+
+</html>
